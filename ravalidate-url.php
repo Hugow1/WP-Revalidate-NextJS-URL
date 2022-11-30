@@ -2,7 +2,7 @@
 /*
 Plugin Name:  Revalidate NextJS URL
 Description:  A small plugin that will revalidate the URL of a post when it is saved. Works with NextJS revalidate.
-Version:      0.1
+Version:      0.1.1
 Author:       Hugo Winder
 Author URI:   https://www.hugowinder.com
 Plugin URI:   https://github.com/Hugow1/WP-Revalidate-NextJS-URL
@@ -14,16 +14,16 @@ Domain Path:  /languages
 
 add_action('save_post', 'revalidate_post', 20, 1);
 
-$wp_revalidate_nextjs_url_options = get_option( 'wp_revalidate_nextjs_url_option_name' );
-define('SECRET_TOKEN', $wp_revalidate_nextjs_url_options['secret_token_0']);
-define('NEXTJS_URL', $wp_revalidate_nextjs_url_options['nextjs_revalidate_api_path_1']);
-
 function revalidate_post($post_id) {
+  $wp_revalidate_nextjs_url_options = get_option( 'wp_revalidate_nextjs_url_option_name' );
+  $secret_token = $wp_revalidate_nextjs_url_options['secret_token_0'];
+  $nextjs_url = $wp_revalidate_nextjs_url_options['nextjs_revalidate_api_path_1'];
+
   $post = get_post($post_id);
   $url = get_permalink($post_id);
   $url = str_replace(site_url(), '', $url);
 
-  $curl = curl_init(NEXTJS_URL . "?path=" . $url . "&token=" . SECRET_TOKEN);
+  $curl = curl_init($nextjs_url . "?path=" . $url . "&token=" . $secret_token);
 
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
   curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
