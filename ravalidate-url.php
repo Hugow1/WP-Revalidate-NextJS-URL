@@ -2,7 +2,7 @@
 /*
 Plugin Name:  Revalidate NextJS URL
 Description:  A small plugin that will revalidate the URL of a post when it is saved. Works with NextJS revalidate.
-Version:      0.1.1
+Version:      0.1.2
 Author:       Hugo Winder
 Author URI:   https://www.hugowinder.com
 Plugin URI:   https://github.com/Hugow1/WP-Revalidate-NextJS-URL
@@ -57,7 +57,7 @@ class WPRevalidateNextjsURL {
 		<div class="wrap">
 			<h2>WP Revalidate Nextjs URL</h2>
 			<p>Add your secret token and the path to the api endpoint here.</p>
-			<?php settings_errors(); ?>
+			<!-- <?php settings_errors(); ?> -->
 
 			<form method="post" action="options.php">
 				<?php
@@ -119,14 +119,14 @@ class WPRevalidateNextjsURL {
 
 	public function secret_token_0_callback() {
 		printf(
-			'<input class="regular-text" type="text" name="wp_revalidate_nextjs_url_option_name[secret_token_0]" id="secret_token_0" value="%s">',
+			'<input required class="regular-text" type="text" name="wp_revalidate_nextjs_url_option_name[secret_token_0]" id="secret_token_0" value="%s">',
 			isset( $this->wp_revalidate_nextjs_url_options['secret_token_0'] ) ? esc_attr( $this->wp_revalidate_nextjs_url_options['secret_token_0']) : ''
 		);
 	}
 
 	public function nextjs_revalidate_api_path_1_callback() {
 		printf(
-			'<input class="regular-text" type="text" name="wp_revalidate_nextjs_url_option_name[nextjs_revalidate_api_path_1]" id="nextjs_revalidate_api_path_1" value="%s">',
+			'<input required class="regular-text" type="text" name="wp_revalidate_nextjs_url_option_name[nextjs_revalidate_api_path_1]" id="nextjs_revalidate_api_path_1" value="%s">',
 			isset( $this->wp_revalidate_nextjs_url_options['nextjs_revalidate_api_path_1'] ) ? esc_attr( $this->wp_revalidate_nextjs_url_options['nextjs_revalidate_api_path_1']) : ''
 		);
 	}
